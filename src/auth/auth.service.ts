@@ -44,14 +44,15 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new NotFoundException('Invalid email or password');
+      throw new ForbiddenException('Invalid email or password');
     }
     const matches = bcrypt.compare(dto.password, user.hash);
 
     if (!matches) {
-      throw new NotFoundException('Invalid email or password');
+      throw new ForbiddenException('Invalid email or password');
     }
     const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRtHash(user.id, tokens.refresh_token);
     return tokens;
   }
 
