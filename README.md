@@ -23,8 +23,119 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
+This repository is a learning project that contains an authentication NestJS API with some endpoints. The API provides functionality for user signup, signin, signout, token refresh, getUser and getAllUsers.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Endpoints
+
+The following endpoints are available:
+
+### `POST /auth/signup`
+
+Creates a new user account.
+
+**Request Body**
+
+    {
+      "email": "user@example.com",
+      "password": "secret"
+    }
+
+**Response Body**
+
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      "refreshToken": "c09ed739-dc6a-45f1-bbeb-c12d7c167d29"
+    }
+
+### `POST /auth/signin`
+
+Retrieves an access and refresh token for an existing user account.
+
+**Request Body**
+
+    {
+      "email": "user@example.com",
+      "password": "secret"
+    } 
+
+**Response Body**
+
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      "refreshToken": "c09ed739-dc6a-45f1-bbeb-c12d7c167d29"
+    } 
+
+### `POST /auth/signout`
+
+Revokes the refresh token for the current user, effectively logging them out.
+
+**Request Headers**
+
+`Authorization: Bearer <accessToken>` 
+
+
+### `POST /auth/refresh`
+
+Retrieves a new access token using a valid refresh token.
+
+**Request Headers**
+
+`Authorization: Bearer <refreshToken>` 
+
+**Response Body**
+
+    {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+	"refresh_token":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoiand0QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY3OTE1MTA1MCwiZXhwIjoxNjc5NzU1ODUwfQ.NzL7P6JGQyaOBPLh9_r3OqhMpm02hwdkJSaBpLKxNqU"
+	}
+
+
+### `GET /users/me`
+
+Retrieves information about a single user.
+
+**Request Headers**
+
+`Authorization: Bearer <accessToken>` 
+
+**Response Body**
+
+    {
+    "sub":  2,
+    "email":  "jwt@gmail.com",
+    "iat":  1679151357,
+    "exp":  1679152257
+    }
+
+### `GET /users`
+
+Retrieves information about all users.
+
+**Request Headers**
+
+`Authorization: Bearer <accessToken>` 
+
+**Response Body**
+
+    [
+	    {
+	    "sub":  1,
+	    "email":  "user1@gmail.com",
+	    "iat":  1679151357,
+	    "exp":  1679152257
+	    },
+	    {
+	    "sub":  2,
+	    "email":  "user2@gmail.com",
+	    "iat":  1679151357,
+	    "exp":  1679152257
+	    }
+    ]
+
 
 ## Installation
 
