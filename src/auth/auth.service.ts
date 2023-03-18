@@ -104,6 +104,7 @@ export class AuthService {
         {
           sub: userId,
           email,
+          role: 'admin',
         },
         {
           secret: 'access-secret-key',
@@ -114,6 +115,7 @@ export class AuthService {
         {
           sub: userId,
           email,
+          role: 'admin',
         },
         {
           secret: 'refresh-secret-key',
