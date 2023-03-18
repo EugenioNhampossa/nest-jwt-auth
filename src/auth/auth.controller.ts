@@ -9,6 +9,7 @@ import {
 import { GetUser } from 'src/common/decorators';
 import { AtGuard, RtGuard } from 'src/common/guards';
 import { Tokens } from './@types';
+import { userPayload } from './@types/userPayload.types';
 import { AuthService } from './auth.service';
 import { AuthDTO } from './dto';
 
@@ -38,7 +39,7 @@ export class AuthController {
   @Post('/refresh')
   @HttpCode(HttpStatus.OK)
   @UseGuards(RtGuard)
-  refreshTokens(@GetUser() user: any): Promise<Tokens> {
+  refreshTokens(@GetUser() user: userPayload): Promise<Tokens> {
     return this.authService.refreshTokens(user.sub, user.refreshToken);
   }
 }
